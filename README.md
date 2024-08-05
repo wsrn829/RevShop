@@ -29,7 +29,6 @@ Final delivery of the project will require:
  - [ ] View user order history (list of all orders placed by user, paginated)
  - [ ] View seller's inventory of products
  - [ ] Edit seller's inventory of products, add items, remove items, modify stock
- - [ ] View seller order history (list of all orders placed with seller, paginated)
  - [ ] Receive email notification with details when a purchase is made
 
 
@@ -72,7 +71,6 @@ Final delivery of the project will require:
  - Login into the application using email/username and password
  - Manage inventory of products (stock should decrease with purchases, and seller accounts should be able to increase it)
  - Add new products with price and description
- - See placed orders
  - Receive email notifications when a user places an order
 
 #### Stretch Goals:
