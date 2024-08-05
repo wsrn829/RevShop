@@ -50,9 +50,9 @@ Final delivery of the project will require:
  - Docker
  - Jenkins
  - AWS
-  - RDS
-  - EC2
-  - S3
+   - RDS
+   - EC2
+   - S3
 
 ## User Stories
 #### As a buyer, I should be able to:
