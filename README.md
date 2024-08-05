@@ -18,7 +18,7 @@ Final delivery of the project will require:
  - [ ] Log in as buyer/seller & show newly acquired cookie
  - [ ] View products (paginated)
    - [ ] Each product shows: name, image, price
-   - [ ] Filter product view by category or keyword search
+   - [ ] Filter product view by seller or keyword search
  - [ ] View a product's details including: name, description, price, user reviews
  - [ ] Add product to cart
  - [ ] Remove product from cart
