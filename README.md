@@ -13,7 +13,25 @@ Final delivery of the project will require:
  - A demonstration of the app
 
 ## Demonstration
- - [ ] test
+ - [ ] Register new seller
+ - [ ] Register new buyer
+ - [ ] Log in as buyer/seller & show newly acquired cookie
+ - [ ] View products (paginated)
+   - [ ] Each product shows: name, image, price
+   - [ ] Filter product view by category or keyword search
+ - [ ] View a product's details including: name, description, price, user reviews
+ - [ ] Add product to cart
+ - [ ] Remove product from cart
+ - [ ] Adjust quantity of product in cart
+ - [ ] Checkout (fake - simulated checkout workflow)
+ - [ ] Receive email notification with purchase details
+ - [ ] Review a product
+ - [ ] View user order history (list of all orders placed by user, paginated)
+ - [ ] View seller's inventory of products
+ - [ ] Edit seller's inventory of products, add items, remove items, modify stock
+ - [ ] View seller order history (list of all orders placed with seller, paginated)
+ - [ ] Receive email notification with details when a purchase is made
+
 
 ## Dates
  - Code Freeze: EOB 8/21/24
@@ -41,25 +59,21 @@ Final delivery of the project will require:
 #### As a buyer, I should be able to:
  - Register on the platform with email/username and password
  - Login to the application using email/username and password
- - View product details including image, price, description, and user review
+ - View product details including image, price, description, and user reviews
  - Browse products by category and/or keywords
  - Add or remove products from the cart and provide quantity
- - Checkout and enter shipping and billing information
  - Get email notifications when an order is placed
  - View order history
  - Review products
- - Save the product as a favorite
  - Make a simulated payment in a fake checkout workflow
 
 #### As a seller, I should be able to:  
  - Register as a seller with email/username, password, and business details
  - Login into the application using email/username and password
- - Manage inventory of products
+ - Manage inventory of products (stock should decrease with purchases, and seller accounts should be able to increase it)
  - Add new products with price and description
  - See placed orders
  - Receive email notifications when a user places an order
- - Provide discounted price along with the maximum retail price
- - View buyer reviews of your products
 
 #### Stretch Goals:
  - Site hosted in the cloud, and API running on cloud server for demonstration
@@ -86,3 +100,4 @@ Final delivery of the project will require:
  - Use Spring framework, and the Core, Web, and Data modules for the server
  - Use React library for the SPA client
  - Validate and sanitize all user inputs in the client
+ - Paginate any very large collection of items
