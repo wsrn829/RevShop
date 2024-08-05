@@ -29,7 +29,7 @@ Final delivery of the project will require:
  - [ ] View user order history (list of all orders placed by user, paginated)
  - [ ] View seller's inventory of products
  - [ ] Edit seller's inventory of products, add items, remove items, modify stock
- - [ ] Receive email notification with details when a purchase is made
+ - [ ] Receive notification with details when a purchase is made for shipping products (either email, or in-app notification)
 
 
 ## Dates
@@ -71,7 +71,7 @@ Final delivery of the project will require:
  - Login into the application using email/username and password
  - Manage inventory of products (stock should decrease with purchases, and seller accounts should be able to increase it)
  - Add new products with price and description
- - Receive email notifications when a user places an order
+ - Receive email notifications or in-app notification to ship purchased items after checkout is complete
 
 #### Stretch Goals:
  - Site hosted in the cloud, and API running on cloud server for demonstration
