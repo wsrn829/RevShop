@@ -59,7 +59,7 @@ Final delivery of the project will require:
  - Register on the platform with email/username and password
  - Login to the application using email/username and password
  - View product details including image, price, description, and user reviews
- - Browse products by category and/or keywords
+ - Browse products by seller and/or keywords
  - Add or remove products from the cart and provide quantity
  - Get email notifications when an order is placed
  - View order history
