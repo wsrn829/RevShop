@@ -95,6 +95,8 @@ CREATE TABLE OrderItems (
     status item_status NOT NULL DEFAULT 'PLACED'
 );
 
+--TODO: ask about Carts & Wishlists Tables
+
 -- CREATE TABLE Carts (
 --     cart_id SERIAL PRIMARY KEY,
 --     buyer_id INTEGER NOT NULL REFERENCES Users(user_id),
