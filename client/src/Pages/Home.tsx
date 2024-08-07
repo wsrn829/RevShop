@@ -5,7 +5,7 @@ import { useAuth } from '../Context/AuthContext';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState('');
-    const [fetchedUser, setFetchedUser] = useState<User | null>(null); // Proper useState for fetched user
+    const [fetchedUser, setFetchedUser] = useState<User | null>(null); 
     const [error, setError] = useState('');
     const { user } = useAuth();
 
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
                 <button type="submit">Fetch Other User</button>
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {fetchedUser && ( // Display fetched user details
+            {fetchedUser && ( 
                 <div>
                     <h3>Fetched User Details</h3>
                     <p><strong>Username:</strong> {fetchedUser.username}</p>
