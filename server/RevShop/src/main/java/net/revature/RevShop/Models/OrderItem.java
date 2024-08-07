@@ -3,16 +3,16 @@ package net.revature.RevShop.Models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "CartItems")
-public class CartItem {
+@Table(name = "OrderItems")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer cartItemId;
+    private Integer orderItemId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    private User buyer;
+    @JoinColumn(name = "orderId")
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "userId")
@@ -23,6 +23,8 @@ public class CartItem {
     private Product product;
 
     private Integer quantity;
+    private Double price;
+    private String itemStatus;
 
 
 }
