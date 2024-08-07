@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import config from '../config';
 import { useNavigate } from 'react-router-dom';
+import '../CSS/register.css';
 
 const RegisterPage: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -13,7 +14,8 @@ const RegisterPage: React.FC = () => {
     const [businessDetails, setBusinessDetails] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
@@ -56,80 +58,108 @@ const RegisterPage: React.FC = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username:</label>
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
+        <div className="register-container">
+            <div className="register-image"></div>
+            <div className="register-form">
+                <div className="card">
+                    <div className="card-body">
+                        <h2 className="card-title text-center">Register</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label>Username</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Confirm Password</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>First Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Last Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Type</label>
+                                <select
+                                    className="form-control"
+                                    value={type}
+                                    onChange={(e) => setType(e.target.value)}
+                                >
+                                    <option value="BUYER">Buyer</option>
+                                    <option value="SELLER">Seller</option>
+                                    <option value="BOTH">Both</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Business Details</label>
+                                <textarea
+                                    className="form-control"
+                                    value={businessDetails}
+                                    onChange={(e) => setBusinessDetails(e.target.value)}
+                                ></textarea>
+                            </div>
+                            {error && <p className="text-danger">{error}</p>}
+                            {success && (
+                                <p className="text-success">
+                                    Registration successful! Redirecting to login...
+                                </p>
+                            )}
+                            <button type="submit" className="btn btn-primary btn-block">
+                                Register
+                            </button>
+                            <p className="register-link text-center">
+                            Already have an account? <a href="/">Log in here</a> 
+                        </p>
+                        </form>
+                        
+                    </div>
                 </div>
-                <div>
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>Confirm Password:</label>
-                    <input
-                        type="password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label>First Name:</label>
-                    <input
-                        type="text"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Last Name:</label>
-                    <input
-                        type="text"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label>Type:</label>
-                    <select value={type} onChange={(e) => setType(e.target.value)}>
-                        <option value="BUYER">Buyer</option>
-                        <option value="SELLER">Seller</option>
-                        <option value="BOTH">Both</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Business Details:</label>
-                    <textarea
-                        value={businessDetails}
-                        onChange={(e) => setBusinessDetails(e.target.value)}
-                    />
-                </div>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>Registration successful! Redirecting to login...</p>}
-                <button type="submit">Register</button>
-            </form>
+            </div>
         </div>
     );
 };

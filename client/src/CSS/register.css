@@ -1,0 +1,59 @@
+.register-container {
+    display: flex;
+    height: 100vh;
+}
+
+.register-image {
+    flex: 1;
+    background-image: url('/src/logopics/RevShop.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.register-form {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.911); 
+}
+
+.card {
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.card-title {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+.btn-primary {
+    background-color: #1a73e8;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #135aba;
+}
+
+.text-danger {
+    color: #ff4d4d;
+}
+
+.text-success {
+    color: #4caf50;
+}
