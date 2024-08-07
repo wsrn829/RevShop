@@ -42,7 +42,6 @@ public class UserRepositoryTest {
         );
     }
 
-
     //All testing
     @Test
     public void testingSaveUser() {
