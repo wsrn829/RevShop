@@ -68,7 +68,7 @@ public class UserControllerTest {
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"username\": \"YuQi\", \"password\": \"Freak\", \"email\": \"yuqi@example.com\", " +
-                                "\"firstName\": \"Yu\", \"lastName\": \"Qi\", \"type\": \"CUSTOMER\", \"businessDetails\": \"Some business details\", " +
+                                "\"firstName\": \"Yu\", \"lastName\": \"Qi\", \"type\": \"CUSTOMER\", \"businessDetails\": \"Test business\", " +
                                 "\"isActive\": true}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("YuQi"))
