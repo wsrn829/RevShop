@@ -55,6 +55,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Notification> notifications = new HashSet<>();
 
+    @OneToMany(mappedBy = "buyer")
+    private Set<CartItem> cartItems = new HashSet<>();
+
     /*
     * @OneToMany
     * orders (buyers)

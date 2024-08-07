@@ -11,11 +11,11 @@ public class WishlistItem {
     private Integer wishlistItemId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "buyer_user_id")
     private User buyer;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "seller_user_id")
     private User seller;
 
     @ManyToOne
