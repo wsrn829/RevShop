@@ -29,7 +29,7 @@ public class UserControllerTest {
     //setup Mock Injeact mock
     @MockBean
     private JwtUtil jwtUtil;
-    
+
     @MockBean
     private UserService userService;
 
@@ -64,6 +64,8 @@ public class UserControllerTest {
         when(userService.findUserByUsername("YuQi")).thenReturn(null);
         when(userService.createUser(any(User.class))).thenReturn(user);
 
+        //https://stackoverflow.com/questions/72115234/mockmvc-integration-test-create-user-before-unit-test
+        //https://mkyong.com/spring-boot/spring-test-how-to-test-a-json-array-in-jsonpath/
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"username\": \"YuQi\", \"password\": \"Freak\", \"email\": \"yuqi@example.com\", " +
