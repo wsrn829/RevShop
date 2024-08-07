@@ -32,7 +32,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
 
-        if (!user.isActive()) {
+        if (user.isBanned()) {
             throw new UsernameNotFoundException("User is banned");
         }
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), new ArrayList<>());

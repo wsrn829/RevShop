@@ -3,8 +3,11 @@ package net.revature.RevShop.Models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.*;
+
 
 @Entity
 @Table(name = "Users")
@@ -13,7 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Integer userId;
 
     @Column(unique = true, nullable = false, length = 50)
     private String username;
@@ -29,18 +32,14 @@ public class User {
 
     @Column(length = 100)
     private String lastName;
+    private String businessDetails;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserType type;
 
-    private String businessDetails;
-
     @Column(nullable = false)
-    private boolean isActive = true;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Boolean banned; // default false
 
     public enum UserType {
         BUYER,
@@ -48,8 +47,31 @@ public class User {
         BOTH,
         ADMIN
     }
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    // One to Many
+    @OneToMany(mappedBy = "user")
+    private Set<Notification> notifications = new HashSet<>();
+
+    @OneToMany(mappedBy = "buyer")
+    private Set<CartItem> cartItems = new HashSet<>();
+
+    /*
+    * @OneToMany
+    * orders (buyers)
+    * reviews (users)
+    * cartItems (buyers)
+    * cartItems (sellers)
+    * wishlistItems (buyers)
+    * wishlistItems (sellers)
+    * orderItems (sellers)
+    * products (sellers)
+    * */
+
     public User() {}
-    public User(String username, String email, String password, String firstName, String lastName, UserType type, String businessDetails, boolean isActive, LocalDateTime createdAt) {
+    public User(String username, String email, String password, String firstName, String lastName, UserType type, String businessDetails, boolean banned, LocalDateTime createdAt) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -57,15 +79,15 @@ public class User {
         this.lastName = lastName;
         this.type = type;
         this.businessDetails = businessDetails;
-        this.isActive = isActive;
+        this.banned = banned;
         this.createdAt = createdAt;
     }
 
-    public Long getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -92,15 +114,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
     public String getLastName() {
         return lastName;
     }
@@ -125,12 +144,12 @@ public class User {
         this.businessDetails = businessDetails;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isBanned() {
+        return banned;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setBanned(boolean banned) {
+        this.banned = banned;
     }
 
     public LocalDateTime getCreatedAt() {
