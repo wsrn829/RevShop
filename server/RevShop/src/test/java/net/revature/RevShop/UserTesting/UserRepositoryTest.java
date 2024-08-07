@@ -59,10 +59,10 @@ public class UserRepositoryTest {
     public void testingFindUserById() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
 
-        Optional<User> foundUser = userRepository.findById(1L);
+        Optional<User> userFound = userRepository.findById(1L);
 
-        assertTrue(foundUser.isPresent());
-        assertEquals(user.getUsername(), foundUser.get().getUsername());
+        assertTrue(userFound.isPresent());
+        assertEquals(user.getUsername(), userFound.get().getUsername());
         verify(userRepository, times(1)).findById(1L);
     }
 
@@ -70,10 +70,10 @@ public class UserRepositoryTest {
     public void testingFindUserByUsername() {
         when(userRepository.findByUsername(anyString())).thenReturn(user);
 
-        User foundUser = userRepository.findByUsername("YuQi");
+        User userFound = userRepository.findByUsername("YuQi");
 
-        assertNotNull(foundUser);
-        assertEquals(user.getUsername(), foundUser.getUsername());
+        assertNotNull(userFound);
+        assertEquals(user.getUsername(), userFound.getUsername());
         verify(userRepository, times(1)).findByUsername("YuQi");
     }
 
