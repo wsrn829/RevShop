@@ -34,7 +34,7 @@ const RegisterPage: React.FC = () => {
                 lastName,
                 type,
                 businessDetails,
-                isActive: true,
+                isBanned: false,
             };
 
             const response = await axios.post(`${config.BASE_URL}/api/users`, requestBody, {
