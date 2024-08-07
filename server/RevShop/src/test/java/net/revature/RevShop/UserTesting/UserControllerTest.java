@@ -132,10 +132,10 @@ public class UserControllerTest {
         assertEquals(200, response.statusCode());
         assertEquals("YuQi", createdUser.getUsername());
         assertEquals("yuqi@example.com", createdUser.getEmail());
-        assertEquals("Yu", createdUser.getFirstName());
-        assertEquals("Qi", createdUser.getLastName());
+        assertEquals("YuQi", createdUser.getFirstName());
+        assertEquals("Song", createdUser.getLastName());
         assertEquals(User.UserType.BUYER, createdUser.getType());
-        assertEquals("Some business details", createdUser.getBusinessDetails());
+        assertEquals("Test Business", createdUser.getBusinessDetails());
         assertEquals(true, createdUser.isActive());
     }
 
