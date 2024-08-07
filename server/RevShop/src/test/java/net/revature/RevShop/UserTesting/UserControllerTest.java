@@ -15,6 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDateTime;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,7 +27,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
 
     //setup Mock Injeact mock
-    @Mock
+    @MockBean
+    private JwtUtil jwtUtil;
+    
+    @MockBean
     private UserService userService;
 
     @InjectMocks
@@ -33,15 +38,24 @@ public class UserControllerTest {
 
     private User user;
     private Long MyIdL = 1L;
+
+    @Autowired
     private MockMvc mockMvc ;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        user = new User();
-        user.setUserId(MyIdL);
-        user.setUsername("YuQi");
-        user.setPassword("Freak");
+        user = new User(
+                "YuQi",
+                "Yuqi@Gidle.com",
+                "Freak",
+                "Yuqi",
+                "Song",
+                User.UserType.BUYER,
+                "Test Business",
+                true,
+                LocalDateTime.now()
+        );
     }
 
     //testing
@@ -52,9 +66,17 @@ public class UserControllerTest {
 
         mockMvc.perform(post("/api/users")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"username\": \"YuQi\", \"password\": \"Freak\"}"))
+                        .content("{\"username\": \"YuQi\", \"password\": \"Freak\", \"email\": \"yuqi@example.com\", " +
+                                "\"firstName\": \"Yu\", \"lastName\": \"Qi\", \"type\": \"CUSTOMER\", \"businessDetails\": \"Some business details\", " +
+                                "\"isActive\": true}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.username").value("YuQi"));
+                .andExpect(jsonPath("$.username").value("YuQi"))
+                .andExpect(jsonPath("$.email").value("yuqi@example.com"))
+                .andExpect(jsonPath("$.firstName").value("Yu"))
+                .andExpect(jsonPath("$.lastName").value("Qi"))
+                .andExpect(jsonPath("$.type").value("CUSTOMER"))
+                .andExpect(jsonPath("$.businessDetails").value("Some business details"))
+                .andExpect(jsonPath("$.isActive").value(true));
     }
 
 
