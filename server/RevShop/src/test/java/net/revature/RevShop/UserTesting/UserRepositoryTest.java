@@ -24,12 +24,12 @@ public class UserRepositoryTest {
     //mock prep mock , inject mock and before each
     @Mock
     private UserRepository userRepository;
-    private User user;
+    private User ClassUndertest;
     Long MyIdL = 1L;
 
     @BeforeEach
     public void setUp() {
-        user = new User(
+        ClassUndertest = new User(
                 "YuQi",
                 "Yuqi@Gidle.com",
                 "Freak",
@@ -45,34 +45,34 @@ public class UserRepositoryTest {
     //All testing
     @Test
     public void testingSaveUser() {
-        when(userRepository.save(any(User.class))).thenReturn(user);
+        when(userRepository.save(any(User.class))).thenReturn(ClassUndertest);
 
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(ClassUndertest);
 
         assertNotNull(savedUser);
-        assertEquals(user.getUsername(), savedUser.getUsername());
-        verify(userRepository, times(1)).save(user);
+        assertEquals(ClassUndertest.getUsername(), savedUser.getUsername());
+        verify(userRepository, times(1)).save(ClassUndertest);
     }
 
     @Test
     public void testingFindUserById() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(ClassUndertest));
 
         Optional<User> userFound = userRepository.findById(1L);
 
         assertTrue(userFound.isPresent());
-        assertEquals(user.getUsername(), userFound.get().getUsername());
+        assertEquals(ClassUndertest.getUsername(), userFound.get().getUsername());
         verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
     public void testingFindUserByUsername() {
-        when(userRepository.findByUsername(anyString())).thenReturn(user);
+        when(userRepository.findByUsername(anyString())).thenReturn(ClassUndertest);
 
         User userFound = userRepository.findByUsername("YuQi");
 
         assertNotNull(userFound);
-        assertEquals(user.getUsername(), userFound.getUsername());
+        assertEquals(ClassUndertest.getUsername(), userFound.getUsername());
         verify(userRepository, times(1)).findByUsername("YuQi");
     }
 

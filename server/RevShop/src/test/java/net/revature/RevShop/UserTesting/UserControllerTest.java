@@ -7,7 +7,6 @@ import net.revature.RevShop.Security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -36,7 +35,7 @@ public class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    private User user;
+    private User classUnderTest;
     private Long MyIdL = 1L;
 
     @Autowired
@@ -45,7 +44,7 @@ public class UserControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        user = new User(
+        classUnderTest = new User(
                 "YuQi",
                 "Yuqi@Gidle.com",
                 "Freak",
@@ -62,7 +61,7 @@ public class UserControllerTest {
     @Test
     public void testRegisterUser() throws Exception {
         when(userService.findUserByUsername("YuQi")).thenReturn(null);
-        when(userService.createUser(any(User.class))).thenReturn(user);
+        when(userService.createUser(any(User.class))).thenReturn(classUnderTest);
 
         //https://stackoverflow.com/questions/72115234/mockmvc-integration-test-create-user-before-unit-test
         //https://mkyong.com/spring-boot/spring-test-how-to-test-a-json-array-in-jsonpath/
