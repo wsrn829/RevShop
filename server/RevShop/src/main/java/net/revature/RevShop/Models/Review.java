@@ -21,6 +21,7 @@ public class Review {
     @JoinColumn(name = "productId")
     private Product product;
 
+    // Rating needs to be between 1 - 5
     private Integer rating;
     private String comment;
 

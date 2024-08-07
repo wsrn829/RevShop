@@ -22,7 +22,4 @@ public class WishlistItem {
     @JoinColumn(name = "productId")
     private Product product;
 
-    private Integer quantity;
-
-
 }

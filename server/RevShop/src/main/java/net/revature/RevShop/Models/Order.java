@@ -20,6 +20,7 @@ public class Order {
     @JoinColumn(name = "userId")
     private User buyer;
 
+    // number can't be negative
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
@@ -27,9 +28,7 @@ public class Order {
 
     public enum OrderStatus {
         PLACED,
-        PARTIALLY_SHIPPED,
         SHIPPED,
-        PARTIALLY_DELIVERED,
         DELIVERED,
         CANCELLED
     }

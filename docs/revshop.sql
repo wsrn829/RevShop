@@ -38,8 +38,7 @@ END $$;
 -- *************************************************************************************************
 CREATE TYPE notification_type AS ENUM ('ORDER_PLACED', 'SHIP_ITEM', 'STOCK_ALERT', 'PRICE_CHANGE');
 CREATE TYPE user_type AS ENUM ('BUYER', 'SELLER', 'BOTH', 'ADMIN');
-CREATE TYPE order_status AS ENUM ('PLACED', 'PARTIALLY_SHIPPED', 'SHIPPED', 'PARTIALLY_DELIVERED', 'DELIVERED', 'CANCELLED');
-CREATE TYPE item_status AS ENUM ('PLACED', 'SHIPPED', 'DELIVERED', 'CANCELLED');
+CREATE TYPE order_status AS ENUM ('PLACED', 'SHIPPED', 'DELIVERED', 'CANCELLED');
 
 -- *************************************************************************************************
 -- Create tables
@@ -54,7 +53,7 @@ CREATE TABLE Users (
     last_name VARCHAR(100),
     type user_type NOT NULL,
     business_details TEXT,
-    is_active BOOLEAN DEFAULT true NOT NULL,
+    is_banned BOOLEAN DEFAULT false NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -70,6 +69,7 @@ CREATE TABLE Products (
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     stock INTEGER NOT NULL DEFAULT 0,
+    threshold_stock INTEGER,
     image_url TEXT,
     category_id INTEGER NOT NULL REFERENCES Categories(category_id)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -91,40 +91,22 @@ CREATE TABLE OrderItems (
     product_id INTEGER NOT NULL Products(product_id),
     seller_id INTEGER NOT NULL Users(user_id),
     quantity INTEGER NOT NULL DEFAULT 1,
-    price DECIMAL(10, 2) NOT NULL,
-    status item_status NOT NULL DEFAULT 'PLACED'
+    unit_price DECIMAL(10, 2) NOT NULL,
 );
-
---TODO: ask about Carts & Wishlists Tables
-
--- CREATE TABLE Carts (
---     cart_id SERIAL PRIMARY KEY,
---     buyer_id INTEGER NOT NULL REFERENCES Users(user_id),
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
 
 CREATE TABLE CartItems (
     cart_item_id SERIAL PRIMARY KEY,
-    -- cart_id INTEGER NOT NULL REFERENCES Carts(cart_id)
     buyer_id INTEGER NOT NULL REFERENCES Users(user_id),
     product_id INTEGER NOT NULL REFERENCES Products(product_id),
     seller_id INTEGER NOT NULL Users(user_id),
     quantity INTEGER NOT NULL DEFAULT 1,
 );
 
--- CREATE TABLE Wishlists (
---     wishlist_id SERIAL PRIMARY KEY,
---     buyer_id INTEGER NOT NULL REFERENCES Users(user_id),
---     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
--- );
-
 CREATE TABLE WishlistItems (
     wishlist_item_id SERIAL PRIMARY KEY,
-    -- wishlist_id INTEGER NOT NULL REFERENCES Wishlists(wishlist_id)
     buyer_id INTEGER NOT NULL REFERENCES Users(user_id),
     product_id INTEGER NOT NULL REFERENCES Products(product_id),
     seller_id INTEGER NOT NULL Users(user_id),
-    quantity INTEGER NOT NULL DEFAULT 1
 );
 
 CREATE TABLE Reviews (
@@ -147,7 +129,7 @@ CREATE TABLE Notifications (
 
 
 
-INSERT INTO Users (username, email, password, first_name, last_name, type, business_details, is_active, created_at)
+INSERT INTO Users (username, email, password, first_name, last_name, type, business_details, is_banned, created_at)
 VALUES ('admin_user', 'admin@example.com', 'password', 'Admin', 'User', 'ADMIN', 'Administrator account', true, CURRENT_TIMESTAMP);
 
 

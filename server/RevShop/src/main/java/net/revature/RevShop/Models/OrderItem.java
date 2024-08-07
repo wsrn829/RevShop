@@ -22,18 +22,11 @@ public class OrderItem {
     @JoinColumn(name = "productId")
     private Product product;
 
+    // number can't be negative
     private Integer quantity;
-    private Double price;
 
-    @Enumerated(EnumType.STRING)
-    private ItemStatus itemStatus;
-
-    public enum ItemStatus {
-        PLACED,
-        SHIPPED,
-        DELIVERED,
-        CANCELLED
-    }
+    // number can't be negative
+    private Double unitPrice;
 
 
 }

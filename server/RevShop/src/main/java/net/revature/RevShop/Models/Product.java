@@ -22,8 +22,12 @@ public class Product {
 
     private String name;
     private String description;
+
+    // numbers can't be negative
     private Double price;
     private Integer stock;
+    private Integer thresholdStock;
+
     private String img_url;
 
     @ManyToOne

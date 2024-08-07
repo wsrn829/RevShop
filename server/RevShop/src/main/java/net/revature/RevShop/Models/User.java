@@ -24,7 +24,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String businessDetails;
-    private Boolean isActive;
+    private Boolean isBanned; // default false
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
@@ -39,6 +39,7 @@ public class User {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    // One to Many
     @OneToMany(mappedBy = "user")
     private Set<Notification> notifications = new HashSet<>();
 
