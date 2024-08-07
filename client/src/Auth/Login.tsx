@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import config from '../config';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 import '../CSS/login.css';
 
 const LoginPage: React.FC = () => {
@@ -19,15 +20,13 @@ const LoginPage: React.FC = () => {
                 password,
             };
 
-            const response = await fetch(`${config.BASE_URL}/api/auth`, {
-                method: 'POST',
+            const response = await axios.post(`${config.BASE_URL}/api/auth`, requestBody, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestBody),
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error('Login failed');
             }
 

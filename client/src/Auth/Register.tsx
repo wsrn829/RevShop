@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import config from '../config';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 import '../CSS/register.css';
 
 const RegisterPage: React.FC = () => {
@@ -36,15 +37,13 @@ const RegisterPage: React.FC = () => {
                 isActive: true,
             };
 
-            const response = await fetch(`${config.BASE_URL}/api/users`, {
-                method: 'POST',
+            const response = await axios.post(`${config.BASE_URL}/api/users`, requestBody, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(requestBody),
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error('Registration failed');
             }
 
@@ -153,10 +152,9 @@ const RegisterPage: React.FC = () => {
                                 Register
                             </button>
                             <p className="register-link text-center">
-                            Already have an account? <a href="/">Log in here</a> 
-                        </p>
+                                Already have an account? <a href="/">Log in here</a>
+                            </p>
                         </form>
-                        
                     </div>
                 </div>
             </div>
