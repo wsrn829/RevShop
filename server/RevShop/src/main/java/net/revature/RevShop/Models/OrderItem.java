@@ -24,7 +24,16 @@ public class OrderItem {
 
     private Integer quantity;
     private Double price;
-    private String itemStatus;
+
+    @Enumerated(EnumType.STRING)
+    private ItemStatus itemStatus;
+
+    public enum ItemStatus {
+        PLACED,
+        SHIPPED,
+        DELIVERED,
+        CANCELLED
+    }
 
 
 }

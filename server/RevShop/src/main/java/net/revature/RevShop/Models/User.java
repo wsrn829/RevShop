@@ -23,9 +23,18 @@ public class User {
     private String password;
     private String firstName;
     private String lastName;
-    private String userType;
     private String businessDetails;
     private Boolean isActive;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    public enum UserType {
+        BUYER,
+        SELLER,
+        BOTH,
+        ADMIN
+    }
 
     @CreationTimestamp
     private LocalDateTime createdAt;

@@ -22,10 +22,10 @@ public class Notification {
     private NotificationType type;
 
     public enum NotificationType {
-        CONNECT_REQUEST,
-        NEW_FOLLOWER,
-        POST_ACTIVITY,
-        CHAT
+        ORDER_PLACED,
+        SHIP_ITEM,
+        STOCK_ALERT,
+        PRICE_CHANGE
     }
 
     private String content;

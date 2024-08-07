@@ -21,7 +21,18 @@ public class Order {
     private User buyer;
 
     private Double totalAmount;
-    private String oderStatus;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+
+    public enum OrderStatus {
+        PLACED,
+        PARTIALLY_SHIPPED,
+        SHIPPED,
+        PARTIALLY_DELIVERED,
+        DELIVERED,
+        CANCELLED
+    }
 
     @CreationTimestamp
     private LocalDateTime createdAt;
