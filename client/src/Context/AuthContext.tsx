@@ -60,3 +60,5 @@ export const useAuth = () => {
     }
     return context;
 };
+
+export { useNavigate };
