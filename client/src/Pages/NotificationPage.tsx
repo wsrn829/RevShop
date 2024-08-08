@@ -67,7 +67,7 @@ const NotificationsPage: React.FC = () => {
         <h2>Notifications</h2>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <ul>
-          {notifications.map((notification) => (
+          {notifications.length > 0 ? notifications.map((notification) => (
             <li
               key={notification.notificationId}
               onClick={() => {
@@ -84,7 +84,7 @@ const NotificationsPage: React.FC = () => {
             >
               {notification.message}
             </li>
-          ))}
+          )): <p>No notifications yet.</p>}
         </ul>
   
         {selectedNotification && (
