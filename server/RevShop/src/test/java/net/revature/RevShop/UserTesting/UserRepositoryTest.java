@@ -24,12 +24,12 @@ public class UserRepositoryTest {
     //mock prep mock , inject mock and before each
     @Mock
     private UserRepository userRepository;
-    private User ClassUndertest;
+    private User classUndertest;
     Long MyIdL = 1L;
 
     @BeforeEach
     public void setUp() {
-        ClassUndertest = new User(
+        classUndertest = new User(
                 "YuQi",
                 "Yuqi@Gidle.com",
                 "Freak",
@@ -37,7 +37,7 @@ public class UserRepositoryTest {
                 "Song",
                 User.UserType.BUYER,
                 "Test Business",
-                true,
+                false,
                 LocalDateTime.now()
         );
     }
@@ -45,34 +45,34 @@ public class UserRepositoryTest {
     //All testing
     @Test
     public void testingSaveUser() {
-        when(userRepository.save(any(User.class))).thenReturn(ClassUndertest);
+        when(userRepository.save(any(User.class))).thenReturn(classUndertest);
 
-        User savedUser = userRepository.save(ClassUndertest);
+        User savedUser = userRepository.save(classUndertest);
 
         assertNotNull(savedUser);
-        assertEquals(ClassUndertest.getUsername(), savedUser.getUsername());
-        verify(userRepository, times(1)).save(ClassUndertest);
+        assertEquals(classUndertest.getUsername(), savedUser.getUsername());
+        verify(userRepository, times(1)).save(classUndertest);
     }
 
     @Test
     public void testingFindUserById() {
-        when(userRepository.findById(anyLong())).thenReturn(Optional.of(ClassUndertest));
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(classUndertest));
 
         Optional<User> userFound = userRepository.findById(1L);
 
         assertTrue(userFound.isPresent());
-        assertEquals(ClassUndertest.getUsername(), userFound.get().getUsername());
+        assertEquals(classUndertest.getUsername(), userFound.get().getUsername());
         verify(userRepository, times(1)).findById(1L);
     }
 
     @Test
     public void testingFindUserByUsername() {
-        when(userRepository.findByUsername(anyString())).thenReturn(ClassUndertest);
+        when(userRepository.findByUsername(anyString())).thenReturn(classUndertest);
 
         User userFound = userRepository.findByUsername("YuQi");
 
         assertNotNull(userFound);
-        assertEquals(ClassUndertest.getUsername(), userFound.getUsername());
+        assertEquals(classUndertest.getUsername(), userFound.getUsername());
         verify(userRepository, times(1)).findByUsername("YuQi");
     }
 
