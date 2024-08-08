@@ -35,12 +35,73 @@ public class Notification {
 
     private String content;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition="BOOLEAN DEFAULT false") //Compatible with PostGres, but not all DB servers.
     private Boolean isRead;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    public Notification() {
+    }
 
+    public Notification(User user, NotificationType type, String content) {
+        this.user = user;
+        this.type = type;
+        this.content = content;
+    }
 
+    public Notification(Integer notificationId, User user, NotificationType type, String content) {
+        this.notificationId = notificationId;
+        this.user = user;
+        this.type = type;
+        this.content = content;
+    }
+
+    public Integer getNotificationId() {
+        return notificationId;
+    }
+
+    public void setNotificationId(Integer notificationId) {
+        this.notificationId = notificationId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public NotificationType getType() {
+        return type;
+    }
+
+    public void setType(NotificationType type) {
+        this.type = type;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Boolean getRead() {
+        return isRead;
+    }
+
+    public void setRead(Boolean read) {
+        isRead = read;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }
