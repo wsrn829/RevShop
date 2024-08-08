@@ -21,11 +21,11 @@ public class NotificationController {
 
 
     private final NotificationService notificationService;
-    private final UserService userService;
+
     @Autowired
-    public NotificationController(NotificationService notificationService, UserService userService) {
+    public NotificationController(NotificationService notificationService) {
         this.notificationService = notificationService;
-        this.userService = userService;
+
     }
 
     @GetMapping
@@ -49,12 +49,6 @@ public class NotificationController {
                 .toList();
     }
 
-    @GetMapping("/read/{read}")
-    public List<NotificationDto> getNotificationsByRead(@PathVariable Boolean read) {
-        return notificationService.getNotificationsByRead(read).stream()
-                .map(DtoConverter::toNotificationDto)
-                .toList();
-    }
 
     @PostMapping
     public ResponseEntity<NotificationDto> createNotification(@RequestBody Notification notification) {
@@ -63,15 +57,10 @@ public class NotificationController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NotificationDto> updateNotification(@PathVariable Integer id, @RequestBody Notification notificationDetails) {
-        Optional<Notification> notification = notificationService.getNotificationById(id);
-        if (notification.isPresent()) {
-            notificationDetails.setNotificationId(id);
-            Notification updatedNotification = notificationService.updateNotification(notificationDetails);
-            return ResponseEntity.ok(DtoConverter.toNotificationDto(updatedNotification));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<NotificationDto> updateNotification(@PathVariable Integer id, @RequestParam Boolean read) {
+        Notification updatedNotification = notificationService.updateNotificationReadStatus(id, read);
+        NotificationDto notificationDto = DtoConverter.toNotificationDto(updatedNotification);
+        return ResponseEntity.ok(notificationDto);
     }
 
     @DeleteMapping("/{id}")

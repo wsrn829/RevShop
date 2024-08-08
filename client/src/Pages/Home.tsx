@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { User } from '../Interface/types';
 import config from '../config';
 import { useAuth } from '../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState('');
@@ -40,6 +40,10 @@ const Home: React.FC = () => {
         <div>
             <h2>Home Page</h2>
             <button onClick={handleLogout}>Logout</button>
+            <hr></hr>
+            <Link to={`/notification/${user?.userId}`}>
+                Check Your Notifications
+            </Link>
             <form onSubmit={handleFetchUser}>
                 <label>
                     Enter User ID:
@@ -56,9 +60,9 @@ const Home: React.FC = () => {
             {fetchedUser && (
                 <div>
                     <h3>Fetched User Details</h3>
-                    <p><strong>Username:</strong> {fetchedUser.username}</p>
-                    <p><strong>Email:</strong> {fetchedUser.email}</p>
-                    <p><strong>Business Details:</strong> {fetchedUser.businessDetails}</p>
+                    <p>Username: {fetchedUser.username}</p>
+                    <p>Email: {fetchedUser.email}</p>
+                    <p>Business Details: {fetchedUser.businessDetails}</p>
                 </div>
             )}
             {user && (

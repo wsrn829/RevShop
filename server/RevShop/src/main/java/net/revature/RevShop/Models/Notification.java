@@ -31,6 +31,7 @@ public class Notification {
     private Boolean read;
 
     @CreationTimestamp
+    @Column(updatable = false)
     private LocalDateTime createdAt;
 
     public enum NotificationType {

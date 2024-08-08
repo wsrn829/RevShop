@@ -37,10 +37,6 @@ public class NotificationService {
         return notificationRepository.findByUser_userId(userId);
     }
 
-    public List<Notification> getNotificationsByRead(Boolean read) {
-        return notificationRepository.findByRead(read);
-    }
-
     public void sendEmailNotification(Notification notification) {
         String subject = "New Notification: " + notification.getType().name();
         String content = notification.getMessage();
@@ -59,7 +55,10 @@ public class NotificationService {
 
 
 
-    public Notification updateNotification(Notification notification) {
+    public Notification updateNotificationReadStatus(Integer notificationId, Boolean read) {
+        Notification notification = notificationRepository.findById(notificationId)
+                .orElseThrow(() -> new RuntimeException("Notification not found"));
+        notification.setRead(read);
         return notificationRepository.save(notification);
     }
 
