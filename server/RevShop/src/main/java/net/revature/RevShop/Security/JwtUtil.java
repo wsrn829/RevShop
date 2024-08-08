@@ -2,6 +2,7 @@ package net.revature.RevShop.Security;
 
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -36,6 +37,12 @@ public class JwtUtil {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public Integer extractId(String token) {
+        Claims claims = extractAllClaims(token);
+
+        return claims.get("id", Integer.class);
+    }
+
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
@@ -57,9 +64,10 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-    public String generateToken(String username) {
+    public String generateToken(String username, Integer id) {
         return Jwts.builder()
                 .setSubject(username)
+                .claim("id", id)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(signingKey, SignatureAlgorithm.HS256)
