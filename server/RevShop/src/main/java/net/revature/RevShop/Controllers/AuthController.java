@@ -31,7 +31,7 @@ public class AuthController {
     public ResponseEntity<LoginResponse> createAuthenticationToken(@RequestBody LoginRequest authenticationRequest, HttpServletResponse response) throws Exception {
         User user = userService.findUserByUsername(authenticationRequest.getUsername());
         if(user != null) {
-            if (!user.isActive()) {
+            if (user.isBanned()) {
                 throw new Exception("User account is inactive");
             }
 
