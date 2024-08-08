@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { User } from '../Interface/types';
 import config from '../config';
 import { useAuth } from '../Context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
     const [userId, setUserId] = useState('');
-    const [fetchedUser, setFetchedUser] = useState<User | null>(null); 
+    const [fetchedUser, setFetchedUser] = useState<User | null>(null);
     const [error, setError] = useState('');
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
     const handleFetchUser = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,17 +24,22 @@ const Home: React.FC = () => {
             }
 
             const data: User = await response.json();
-            setFetchedUser(data); 
+            setFetchedUser(data);
             setError('');
         } catch (error) {
             setError('Failed to fetch user. Please check the user ID and try again.');
             setFetchedUser(null);
         }
     };
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
 
     return (
         <div>
             <h2>Home Page</h2>
+            <button onClick={handleLogout}>Logout</button>
             <form onSubmit={handleFetchUser}>
                 <label>
                     Enter User ID:
@@ -46,7 +53,7 @@ const Home: React.FC = () => {
                 <button type="submit">Fetch Other User</button>
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
-            {fetchedUser && ( 
+            {fetchedUser && (
                 <div>
                     <h3>Fetched User Details</h3>
                     <p><strong>Username:</strong> {fetchedUser.username}</p>
