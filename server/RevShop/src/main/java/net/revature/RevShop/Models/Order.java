@@ -1,5 +1,7 @@
 package net.revature.RevShop.Models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Orders")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 public class Order {
 
     @Id
@@ -19,12 +22,15 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @Column(nullable = false)
     private User buyer;
 
     @PositiveOrZero
+    @Column(nullable = false)
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus orderStatus;
 
     public enum OrderStatus {

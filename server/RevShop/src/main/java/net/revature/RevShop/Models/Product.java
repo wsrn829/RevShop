@@ -1,5 +1,7 @@
 package net.revature.RevShop.Models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Products")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 public class Product {
 
     @Id
@@ -19,18 +22,24 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "userId")
+    @Column(nullable = false)
     private User seller;
 
+    @Column(nullable = false)
     private String name;
+
     private String description;
 
     @PositiveOrZero
+    @Column(nullable = false)
     private Double price;
 
     @PositiveOrZero
+    @Column(nullable = false)
     private Integer stock;
 
     @PositiveOrZero
+    @Column(nullable = false)
     private Integer thresholdStock;
 
     private String img_url;

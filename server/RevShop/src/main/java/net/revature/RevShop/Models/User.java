@@ -21,7 +21,7 @@ public class User {
 
     @Column(unique = true, nullable = false, length = 50)
     @Pattern(regexp = "^[a-zA-Z0-9]{6,24}$",
-            message = "username must be between 6 to 24 characters in length, start with a character, and only permitted special characters are: -, _, !")
+            message = "username must be between 6 to 24 characters in length, and only letters and numbers are allowed.")
     private String username;
 
     @Column(unique = true, nullable = false, length = 100)
@@ -29,13 +29,13 @@ public class User {
 
     @Column(nullable = false, length = 255)
     @Pattern(regexp = "^[a-zA-Z](?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z][A-Za-z\\d\\-_!]){5,23}$",
-            message = "password must be between 6 to 24 characters in length, start with a character, and only permitted special characters are: -, _, !")
+            message = "password must be between 6 to 24 characters in length, start with a letter, and only permitted special characters are: -, _, !")
     private String password;
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 100)
     private String firstName;
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 100)
     private String lastName;
     private String businessDetails;
 
