@@ -6,6 +6,6 @@ export interface User {
     lastName?: string;
     type: string;
     businessDetails?: string;
-    isActive: boolean;
+    banned: boolean;
 
 }
