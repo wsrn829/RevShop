@@ -3,12 +3,14 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import config from '../config';
 import '../CSS/login.css';
+import { useAuth } from '../Context/AuthContext';
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState(false);
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -26,13 +28,15 @@ const LoginPage: React.FC = () => {
                 },
             });
 
+
             if (response.status !== 200) {
                 throw new Error('Login failed');
             }
-
+            const responseData = response.data;
+            login(responseData);
             setSuccess(true);
             setError('');
-            navigate('/home'); 
+            navigate('/home');
         } catch (error) {
             setError('Login failed. Please try again.');
         }
