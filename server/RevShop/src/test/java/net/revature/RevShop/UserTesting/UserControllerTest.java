@@ -1,6 +1,8 @@
 package net.revature.RevShop.UserTesting;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import net.revature.RevShop.Controllers.UserController;
 import net.revature.RevShop.Models.User;
 import net.revature.RevShop.Services.CustomUserDetailsService;
@@ -64,6 +66,9 @@ public class UserControllerTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         classUnderTest = new User(
                 "YuQi",
                 "Yuqi@Gidle.com",
@@ -72,11 +77,10 @@ public class UserControllerTest {
                 "Song",
                 User.UserType.BUYER,
                 "Test Business",
-                true,
+                false,
                 LocalDateTime.now()
         );
 
-        objectMapper = new ObjectMapper();
         webClient = HttpClient.newHttpClient();
     }
 
@@ -87,9 +91,7 @@ public class UserControllerTest {
         objectMapper = null;
     }
 
-
-
-
+    
 
     //testing
     @Test
@@ -106,9 +108,9 @@ public class UserControllerTest {
                 "\"lastName\":\"" + classUnderTest.getLastName() + "\", " +
                 "\"type\":\"" + classUnderTest.getType().toString() + "\", " +
                 "\"businessDetails\":\"" + classUnderTest.getBusinessDetails() + "\", " +
-                "\"isActive\":" + classUnderTest.isActive() +
+                "\"banned\":" + classUnderTest.isBanned() +
                 "}";
-
+        System.out.println(requestBody);
         //  request user registration
         HttpRequest postRequest = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:7777/api/users"))
@@ -131,12 +133,12 @@ public class UserControllerTest {
         // Assert
         assertEquals(200, response.statusCode());
         assertEquals("YuQi", createdUser.getUsername());
-        assertEquals("yuqi@example.com", createdUser.getEmail());
-        assertEquals("YuQi", createdUser.getFirstName());
+        assertEquals("Yuqi@Gidle.com", createdUser.getEmail());
+        assertEquals("Yuqi", createdUser.getFirstName());
         assertEquals("Song", createdUser.getLastName());
         assertEquals(User.UserType.BUYER, createdUser.getType());
         assertEquals("Test Business", createdUser.getBusinessDetails());
-        assertEquals(true, createdUser.isActive());
+        assertEquals(false, createdUser.isBanned());
     }
 
 }
