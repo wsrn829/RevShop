@@ -118,7 +118,7 @@ public class UserControllerTest {
 
         // Send request
         HttpResponse<String> response = webClient.send(postRequest, HttpResponse.BodyHandlers.ofString());
-
+        System.out.println(response);
         // Check status code
         User createdUser = new User();
         if (response.statusCode() >= 200 && response.statusCode() < 300) {
