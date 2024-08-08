@@ -12,10 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public ProductService(ProductRepository productRepository, UserRepository userRepository) {
         this.productRepository = productRepository;
@@ -23,8 +23,6 @@ public class ProductService {
     }
 
     public Product getProductById(Integer productId) {
-
-        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("no product found"));
-        return product;
+        return productRepository.findById(productId).orElseThrow(() -> new RuntimeException("no product found"));
     }
 }

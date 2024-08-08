@@ -1,6 +1,8 @@
 package net.revature.RevShop.Controllers;
 
 import net.revature.RevShop.Models.Product;
+import net.revature.RevShop.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +14,15 @@ import org.springframework.web.bind.annotation.*;
 //)
 public class ProductController {
 
+    @Autowired
+    ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/{product_id}")
     public ResponseEntity<Product> getProductById(@PathVariable Integer productId) {
-        // TODO: service for get product & ProductDto
+        return ResponseEntity.ok(productService.getProductById(productId));
     }
 }
