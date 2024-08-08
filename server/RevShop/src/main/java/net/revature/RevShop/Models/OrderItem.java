@@ -1,6 +1,7 @@
 package net.revature.RevShop.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "OrderItems")
@@ -22,10 +23,10 @@ public class OrderItem {
     @JoinColumn(name = "productId")
     private Product product;
 
-    // number can't be negative
+    @PositiveOrZero
     private Integer quantity;
 
-    // number can't be negative
+    @PositiveOrZero
     private Double unitPrice;
 
 

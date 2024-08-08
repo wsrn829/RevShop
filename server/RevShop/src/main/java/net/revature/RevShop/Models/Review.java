@@ -2,6 +2,7 @@ package net.revature.RevShop.Models;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ public class Review {
     @JoinColumn(name = "productId")
     private Product product;
 
-    // Rating needs to be between 1 - 5
+    @Range(min = 1, max = 5)
     private Integer rating;
     private String comment;
 

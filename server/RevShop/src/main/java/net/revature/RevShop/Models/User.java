@@ -3,6 +3,7 @@ package net.revature.RevShop.Models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -19,12 +20,16 @@ public class User {
     private Integer userId;
 
     @Column(unique = true, nullable = false, length = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9]{6,24}$",
+            message = "username must be between 6 to 24 characters in length, start with a character, and only permitted special characters are: -, _, !")
     private String username;
 
     @Column(unique = true, nullable = false, length = 100)
     private String email;
 
     @Column(nullable = false, length = 255)
+    @Pattern(regexp = "^[a-zA-Z](?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z][A-Za-z\\d\\-_!]){5,23}$",
+            message = "password must be between 6 to 24 characters in length, start with a character, and only permitted special characters are: -, _, !")
     private String password;
 
     @Column(length = 100)

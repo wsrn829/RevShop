@@ -1,6 +1,7 @@
 package net.revature.RevShop.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,9 +24,13 @@ public class Product {
     private String name;
     private String description;
 
-    // numbers can't be negative
+    @PositiveOrZero
     private Double price;
+
+    @PositiveOrZero
     private Integer stock;
+
+    @PositiveOrZero
     private Integer thresholdStock;
 
     private String img_url;

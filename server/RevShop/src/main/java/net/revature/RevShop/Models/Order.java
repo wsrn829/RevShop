@@ -1,6 +1,7 @@
 package net.revature.RevShop.Models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,7 +21,7 @@ public class Order {
     @JoinColumn(name = "userId")
     private User buyer;
 
-    // number can't be negative
+    @PositiveOrZero
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
