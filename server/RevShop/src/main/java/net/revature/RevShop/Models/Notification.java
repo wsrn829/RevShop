@@ -18,8 +18,7 @@ public class Notification {
     private Integer notificationId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "userId")
     private User user;
 
     @Enumerated(EnumType.STRING)

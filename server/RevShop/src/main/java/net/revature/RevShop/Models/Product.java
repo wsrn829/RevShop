@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "Products")
+@Table(name = "products")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "productId")
 public class Product {
 
@@ -22,8 +22,7 @@ public class Product {
 
 
 
-    @JoinColumn(name = "sellerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "sellerId")
     @ManyToOne(fetch = FetchType.EAGER)
   
     private User seller;
