@@ -6,12 +6,16 @@ import net.revature.RevShop.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
 public class UserService {
 
     private final UserRepository userRepository;
@@ -27,7 +31,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(long userId) {
+    public Optional<User> getUserById(Integer userId) {
 
         return userRepository.findById(userId);
     }
@@ -45,7 +49,7 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public User updateUser(Long userId, User updatedUser) throws IllegalArgumentException {
+    public User updateUser(Integer userId, User updatedUser) throws IllegalArgumentException {
         User existingUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (!existingUser.getUsername().equals(updatedUser.getUsername()) &&
@@ -68,7 +72,7 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
 

@@ -1,6 +1,9 @@
 package net.revature.RevShop.Models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Orders")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 public class Order {
 
     @Id
@@ -17,13 +21,16 @@ public class Order {
     private Integer orderId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "buyerId")
+    @Column(nullable = false)
     private User buyer;
 
-    // number can't be negative
+    @PositiveOrZero
+    @Column(nullable = false)
     private Double totalAmount;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private OrderStatus orderStatus;
 
     public enum OrderStatus {
@@ -42,5 +49,75 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems = new HashSet<>();
 
+    public Order() {
+    }
 
+    public Order(Integer orderId, User buyer, Double totalAmount, OrderStatus orderStatus) {
+        this.orderId = orderId;
+        this.buyer = buyer;
+        this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
+    }
+
+    public Order(User buyer, Double totalAmount, OrderStatus orderStatus) {
+        this.buyer = buyer;
+        this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
+    }
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
+    }
+
+    public @PositiveOrZero Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(@PositiveOrZero Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }
