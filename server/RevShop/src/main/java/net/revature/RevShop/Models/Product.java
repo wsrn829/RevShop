@@ -22,8 +22,7 @@ public class Product {
 
 
 
-    @JoinColumn(name = "sellerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "sellerId")
     @ManyToOne(fetch = FetchType.EAGER)
   
     private User seller;

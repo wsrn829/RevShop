@@ -18,13 +18,11 @@ public class Review {
     private Integer reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "userId")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "productId")
     private Product product;
 
     @Range(min = 1, max = 5)

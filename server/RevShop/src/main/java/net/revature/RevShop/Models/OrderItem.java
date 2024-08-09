@@ -18,18 +18,15 @@ public class OrderItem {
     private Integer orderItemId;
 
     @ManyToOne
-    @JoinColumn(name = "orderId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "orderId")
     private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "sellerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "sellerId")
     private User seller;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "productId")
     private Product product;
 
     @Column(nullable = false)

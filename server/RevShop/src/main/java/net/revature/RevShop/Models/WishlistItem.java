@@ -14,18 +14,15 @@ public class WishlistItem {
     private Integer wishlistItemId;
 
     @ManyToOne
-    @JoinColumn(name = "buyerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "buyerId")
     private User buyer;
 
     @ManyToOne
-    @JoinColumn(name = "sellerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "sellerId")
     private User seller;
 
     @ManyToOne
-    @JoinColumn(name = "productId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "productId")
     private Product product;
 
     public WishlistItem() {

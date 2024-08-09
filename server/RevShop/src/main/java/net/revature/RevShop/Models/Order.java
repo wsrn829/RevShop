@@ -21,8 +21,7 @@ public class Order {
     private Integer orderId;
 
     @ManyToOne
-    @JoinColumn(name = "buyerId")
-    @Column(nullable = false)
+    @JoinColumn(nullable = false, name = "buyerId")
     private User buyer;
 
     @PositiveOrZero
