@@ -1,5 +1,7 @@
-package net.revature.RevShop.UserTesting;
+package net.revature.RevShop;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -8,13 +10,10 @@ import net.revature.RevShop.Models.User;
 import net.revature.RevShop.Services.CustomUserDetailsService;
 import net.revature.RevShop.Services.UserService;
 import net.revature.RevShop.Security.JwtUtil;
-import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.net.URI;
@@ -26,19 +25,17 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UserControllerTest {
+@SpringBootTest
 
-    //setup Mock Injeact mock
+class RevShopApplicationTests {
+
+	
+	//setup Mock Injeact mock
     @Mock
     private JwtUtil jwtUtil;
 
@@ -91,7 +88,7 @@ public class UserControllerTest {
         objectMapper = null;
     }
 
-    
+
 
     //testing
     @Test

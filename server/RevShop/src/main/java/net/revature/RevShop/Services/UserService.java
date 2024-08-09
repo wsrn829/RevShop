@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(long userId) {
+    public Optional<User> getUserById(Integer userId) {
 
         return userRepository.findById(userId);
     }
@@ -49,7 +49,7 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
-    public User updateUser(Long userId, User updatedUser) throws IllegalArgumentException {
+    public User updateUser(Integer userId, User updatedUser) throws IllegalArgumentException {
         User existingUser = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         if (!existingUser.getUsername().equals(updatedUser.getUsername()) &&
@@ -72,7 +72,7 @@ public class UserService {
         return userRepository.save(existingUser);
     }
 
-    public void deleteUser(Long userId) {
+    public void deleteUser(Integer userId) {
         userRepository.deleteById(userId);
     }
 

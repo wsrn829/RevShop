@@ -36,7 +36,7 @@ public class AuthController {
             }
 
             if (userService.checkPassword(authenticationRequest.getPassword(), user.getPassword())) {
-                final String jwt = jwtUtil.generateToken(user.getUsername());
+                final String jwt = jwtUtil.generateToken(user.getUsername(), user.getUserId());
                 System.out.println("Generated JWT: " + jwt);
                 Cookie cookie = new Cookie("Authentication", jwt);
 

@@ -20,9 +20,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productId;
 
-    @ManyToOne
+
+
     @JoinColumn(name = "sellerId")
     @Column(nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+  
     private User seller;
 
     @Column(nullable = false)
