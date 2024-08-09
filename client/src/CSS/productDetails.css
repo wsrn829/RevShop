@@ -1,0 +1,52 @@
+.product-details-page {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+}
+
+.product-info-container {
+    border: 2px solid red;
+    display: flex;
+    justify-content: space-between;
+    flex: 2;
+    padding: 20px;
+
+}
+
+.puppy {
+    border: 2px solid purple;
+    width: 20%;
+    height: 200px;
+}
+
+.product-info {
+    border: 2px solid purple;
+    width: 70%;
+}
+
+.product-description {
+    border: 2px solid red;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.product-reviews-container {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.product-review-button {
+    padding: 15px 30px;
+    background-color: blue;
+    color: white;
+    border: none;
+    cursor: pointer;
+    height: 2%;
+    width: 7%;
+    margin: auto;
+}
