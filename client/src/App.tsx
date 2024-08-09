@@ -12,7 +12,9 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/products/details" element={<ProductDetails />} />
+        
+        {/* change the value later : this note fro braxton dont deleted until braxton done his part */}
+        <Route path="/products/details/:productId" element={<ProductDetails productId={0} />} />
       </Routes>
     </div>
   );
