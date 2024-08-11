@@ -106,7 +106,6 @@
 			<version>5.2.0</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- jsonpath-->
 		<dependency>
 			<groupId>com.jayway.jsonpath</groupId>
@@ -114,25 +113,19 @@
 			<version>2.7.0</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.10.2</version>
 			<scope>test</scope>
 		</dependency>
-
-		
 		<!--This was used for testing import on user controller-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.17.2</version>
 		</dependency>
-
-		
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
