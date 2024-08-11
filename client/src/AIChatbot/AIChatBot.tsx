@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -7,9 +7,38 @@ interface Message {
   text: string;
 }
 
+// Declare types for SpeechRecognition and SpeechRecognitionEvent
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+
 const AIChatBot: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
+  const [recognition, setRecognition] = useState<any>(null);
+
+  // Initialize Speech Recognition
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognitionInstance = new SpeechRecognition();
+      recognitionInstance.continuous = false;
+      recognitionInstance.interimResults = false;
+      recognitionInstance.lang = 'en-US';
+
+      recognitionInstance.onresult = (event: any) => {
+        const transcript = event.results[0][0].transcript;
+        setPrompt(transcript);
+      };
+
+      setRecognition(recognitionInstance);
+    } else {
+      console.error('Speech Recognition API not supported in this browser.');
+    }
+  }, []);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -22,10 +51,23 @@ const AIChatBot: React.FC = () => {
       });
       const aiMessage: Message = { sender: 'ai', text: res.data };
       setMessages([...messages, userMessage, aiMessage]);
+      speakText(res.data);
     } catch (error) {
       console.error('Error fetching AI response:', error);
     }
     setPrompt('');
+  };
+
+  const startRecognition = () => {
+    if (recognition) {
+      recognition.start();
+    }
+  };
+
+  const speakText = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    window.speechSynthesis.speak(utterance);
   };
 
   return (
@@ -51,8 +93,10 @@ const AIChatBot: React.FC = () => {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 required
+                aria-label="Enter your prompt"
               />
-              <button type="submit" className="btn btn-info">Send</button>
+              <button type="submit" className="btn btn-info" aria-label="Send message">Send</button>
+              <button type="button" className="btn btn-secondary" onClick={startRecognition} aria-label="Start voice recognition"><i className="fas fa-microphone"></i></button>
             </div>
           </form>
         </div>
@@ -80,6 +124,15 @@ const AIChatBot: React.FC = () => {
 
         .chat-message.ai {
           background-color: #e9ecef;
+        }
+
+        .input-group .btn {
+          margin-left: 5px;
+        }
+
+        .input-group .btn:focus {
+          outline: 2px solid #0056b3;
+          outline-offset: 2px;
         }
       `}</style>
     </div>
