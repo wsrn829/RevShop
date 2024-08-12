@@ -9,3 +9,20 @@ export interface User {
     banned: boolean;
 
 }
+
+export interface Product {
+    productId: number;
+    seller: User; 
+    name: string;
+    description: string;
+    price: number;
+    stock: number;
+   img_url: string;
+    category: Category; // change later category: Category;
+}
+
+export interface Category {
+    categoryId: number;  
+    name: string;        
+    products: Product[]; 
+}

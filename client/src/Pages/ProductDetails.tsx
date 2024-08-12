@@ -2,17 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../CSS/productDetails.css'
 import { useParams } from 'react-router-dom';
+import { Product ,User , Category } from '../Interface/types';
 
- interface Product {
-     productId: number;
-     seller: string; // change later into seller: User;
-     name: string;
-     description: string;
-     price: number;
-     stock: number;
-    img_url: string;
-     category: string; // change later category: Category;
-}
+
 
  interface Props {    
      productId: number; 
@@ -28,6 +20,7 @@ function ProductDetails(props: Props) {
     //this is the param for route in app.tsx
     const { productId } = useParams<{ productId: string }>();
      const [product, setProduct] = useState<Product | null>(null);
+     const [User , setUser] = useState<User | null >(null);
 
      useEffect(() => {
          axios.get(`http://localhost:7777/products/${props.productId}`)
@@ -47,7 +40,7 @@ function ProductDetails(props: Props) {
                 <img className='puppy' src='https://www.petlandflorida.com/wp-content/uploads/2022/04/shutterstock_1290320698-1-scaled.jpg' /> 
                 <div className='product-info'>
                     <p>{product ? product.name : 'Product is nameless'}</p>
-                    <p>{product? product.seller: 'seller is uknown'}</p>
+                    <p>{product? product.seller.firstName: 'seller is uknown'}</p>
                     <p>{product? product.price: 'priceless'}</p>
                     <p>{product? product.stock: 'infinity null'}</p>
                     <button>BUY NOW</button>
