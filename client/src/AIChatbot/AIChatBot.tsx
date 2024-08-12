@@ -19,6 +19,7 @@ const AIChatBot: React.FC = () => {
   const [prompt, setPrompt] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [recognition, setRecognition] = useState<any>(null);
+  const [isSTTUsed, setIsSTTUsed] = useState<boolean>(false);
 
   // Initialize Speech Recognition
   useEffect(() => {
@@ -32,6 +33,7 @@ const AIChatBot: React.FC = () => {
       recognitionInstance.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript;
         setPrompt(transcript);
+        setIsSTTUsed(true);
       };
 
       setRecognition(recognitionInstance);
@@ -51,7 +53,10 @@ const AIChatBot: React.FC = () => {
       });
       const aiMessage: Message = { sender: 'ai', text: res.data };
       setMessages([...messages, userMessage, aiMessage]);
-      speakText(res.data);
+      if (isSTTUsed) {
+        speakText(res.data);
+        setIsSTTUsed(false);
+      }
     } catch (error) {
       console.error('Error fetching AI response:', error);
     }
