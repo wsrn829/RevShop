@@ -12,7 +12,6 @@ function ProductDetails() {
      const [User , setUser] = useState<User | null >(null);
 
      useEffect(() => {
-        if (productId) {
             axios.get(`http://localhost:7777/products/${productId}`)
                 .then(response => {
                     console.log(response.data);
@@ -21,8 +20,7 @@ function ProductDetails() {
                 .catch(error => {
                     console.error("Error fetching product details: ", error);
                 });
-        }
-     }, [productId]); // maybe change?
+     }, [productId]); 
     
     return (
         <div className='product-details-page'>
