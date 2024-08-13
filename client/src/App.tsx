@@ -13,8 +13,8 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         
-        {/* change the value later : this note fro braxton dont deleted until braxton done his part */}
-        <Route path="/products/details/:productId" element={<ProductDetails productId={0} />} />
+        {/* I use param so just follow this uri mapping : this note fro braxton dont deleted until braxton done his part */}
+        <Route path="/products/details/:productId" element={<ProductDetails />} />
       </Routes>
     </div>
   );

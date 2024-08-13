@@ -3,41 +3,29 @@ import axios from 'axios'
 import '../CSS/productDetails.css'
 import { useParams } from 'react-router-dom';
 import { Product ,User , Category } from '../Interface/types';
+  
 
-
-
- interface Props {    
-     productId: number; 
-    }    // maybe change?    
-
-function ProductDetails(props: Props) {
-    // grab product by its id, through the products page by clicking on it
-    // display product's name, picture, seller info, price, description, (maybe stock)
-        //  IF LOGGED IN AS SELLER: stock, 
-    // work with others: reviews
-
-
-    //this is the param for route in app.tsx
+function ProductDetails() {
+    //this is the param for route in app.tsx we basically grabbing the productId
     const { productId } = useParams<{ productId: string }>();
      const [product, setProduct] = useState<Product | null>(null);
      const [User , setUser] = useState<User | null >(null);
 
      useEffect(() => {
-         axios.get(`http://localhost:7777/products/${props.productId}`)
-             .then(response => {
-                 console.log(response);
-                 console.log(response.data);
-                 setProduct(response.data);
-             })
-             .catch(error => {
-                 console.error("error fetching product details: ", error);
-             })
-     }, [props.productId]); // maybe change?
+            axios.get(`http://localhost:7777/products/${productId}`)
+                .then(response => {
+                    console.log(response.data);
+                    setProduct(response.data);
+                })
+                .catch(error => {
+                    console.error("Error fetching product details: ", error);
+                });
+     }, [productId]); 
     
     return (
         <div className='product-details-page'>
             <div className='product-info-container'>
-                <img className='puppy' src='https://www.petlandflorida.com/wp-content/uploads/2022/04/shutterstock_1290320698-1-scaled.jpg' /> 
+                <img className='productimage' src={product?.img_url} />  
                 <div className='product-info'>
                     <p>{product ? product.name : 'Product is nameless'}</p>
                     <p>{product? product.seller.firstName: 'seller is uknown'}</p>
