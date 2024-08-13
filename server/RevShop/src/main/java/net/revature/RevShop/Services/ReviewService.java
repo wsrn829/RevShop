@@ -31,6 +31,10 @@ public class ReviewService {
         return reviewRepository.findByProductId(productId);
     }
 
+    public List<Review> getAllUserReviews(Integer userId) {
+        return reviewRepository.findByUserId(userId);
+    }
+
     public Review getReviewById(Integer reviewId) {
         return reviewRepository.findByReviewId(reviewId);
     }
@@ -39,18 +43,16 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    public Review editReview(Review review) {
-        Review currReview = getReviewById(review.getReviewId());
-        currReview.setComment(review.getComment());
-        currReview.setRating(review.getRating());
+    public Review editReview(Review updatedReview) {
+        //Review
+        Review currReview = getReviewById(updatedReview.getReviewId());
+        currReview.setComment(updatedReview.getComment());
+        currReview.setRating(updatedReview.getRating());
         return reviewRepository.save(currReview);
     }
 
-    public void deleteReview(Review review) {
-        reviewRepository.deleteById(review.getReviewId());
+    public void deleteReview(Integer reviewId) {
+        reviewRepository.deleteById(reviewId);
     }
 
-    public List<Review> getAllUserReviews(Integer userId) {
-        return reviewRepository.findByUserId(userId);
-    }
 }
