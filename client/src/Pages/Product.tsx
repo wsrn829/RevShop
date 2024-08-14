@@ -83,6 +83,8 @@ return (
           <p>Product Description: {p.description}</p>
         <p>Price: {p.price}</p>
         <p>Stock: {p.stock}</p>
+        <p>Category Name: {p.category.name}</p>
+        <p>Seller Name: {p.seller.username}</p>
         
         </div>
       ))}
