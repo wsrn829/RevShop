@@ -3,6 +3,9 @@ package net.revature.RevShop.Models;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -19,18 +22,24 @@ public class User {
     private Integer userId;
 
     @Column(unique = true, nullable = false, length = 50)
+    @Pattern(regexp = "^[a-zA-Z0-9]{6,24}$",
+            message = "username must be between 6 to 24 characters in length, and only letters and numbers are allowed.")
     private String username;
 
     @Column(unique = true, nullable = false, length = 100)
+    @Email(message = "Email is not valid", regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")
+    @NotEmpty(message = "Email cannot be empty")
     private String email;
 
     @Column(nullable = false, length = 255)
+    @Pattern(regexp = "^[a-zA-Z](?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[A-Z][A-Za-z\\d\\-_!]){5,23}$",
+            message = "password must be between 6 to 24 characters in length, start with a letter, and only permitted special characters are: -, _, !")
     private String password;
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 100)
     private String firstName;
 
-    @Column(length = 100)
+    @Column(nullable = false, length = 100)
     private String lastName;
     private String businessDetails;
 
@@ -38,8 +47,8 @@ public class User {
     @Column(nullable = false)
     private UserType type;
 
-    @Column(nullable = false)
-    private Boolean banned; // default false
+    @Column(nullable = false, columnDefinition="BOOLEAN DEFAULT false") //Compatible with PostGres, but not all DB servers.
+    private Boolean banned;
 
     public enum UserType {
         BUYER,
@@ -55,23 +64,32 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Notification> notifications = new HashSet<>();
 
-    @OneToMany(mappedBy = "buyer")
-    private Set<CartItem> cartItems = new HashSet<>();
+    @OneToMany(mappedBy = "user")
+    private Set<Review> reviews = new HashSet<>();
 
-    /*
-    * @OneToMany
-    * orders (buyers)
-    * reviews (users)
-    * cartItems (buyers)
-    * cartItems (sellers)
-    * wishlistItems (buyers)
-    * wishlistItems (sellers)
-    * orderItems (sellers)
-    * products (sellers)
-    * */
+    @OneToMany(mappedBy = "seller")
+    private Set<Product> sellerProducts = new HashSet<>();
+
+    @OneToMany(mappedBy = "buyer")
+    private Set<Order> buyerOrders = new HashSet<>();
+
+    @OneToMany(mappedBy = "seller")
+    private Set<OrderItem> sellerOrderedItems = new HashSet<>();
+
+    @OneToMany(mappedBy = "buyer")
+    private Set<CartItem> buyerCartItems = new HashSet<>();
+
+    @OneToMany(mappedBy = "seller")
+    private Set<CartItem> sellerCartItems = new HashSet<>();
+
+    @OneToMany(mappedBy = "buyer")
+    private Set<WishlistItem> buyerWishlistItems = new HashSet<>();
+
+    @OneToMany(mappedBy = "seller")
+    private Set<WishlistItem> sellerWishlistItems = new HashSet<>();
 
     public User() {}
-    public User(String username, String email, String password, String firstName, String lastName, UserType type, String businessDetails, boolean banned, LocalDateTime createdAt) {
+    public User(String username, String email, String password, String firstName, String lastName, UserType type, String businessDetails) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -79,8 +97,17 @@ public class User {
         this.lastName = lastName;
         this.type = type;
         this.businessDetails = businessDetails;
-        this.banned = banned;
-        this.createdAt = createdAt;
+    }
+
+    public User(Integer userId, String username, String email, String password, String firstName, String lastName, UserType type, String businessDetails) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.type = type;
+        this.businessDetails = businessDetails;
     }
 
     public Integer getUserId() {

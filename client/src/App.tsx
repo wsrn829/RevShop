@@ -4,16 +4,20 @@ import Register from "./Auth/Register";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import AIChatbot from "./AIChatbot/AIChatBot";
+import Product from "./Pages/Product";
 
 const App = () => {
   return (
     <div className="App">
+     
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/chatbot" element={<AIChatbot />} />
+        <Route path="/product" element={<Product />} />
       </Routes>
+      
     </div>
   );
 };
